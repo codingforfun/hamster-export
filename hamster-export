@@ -456,15 +456,7 @@ def exit(*args):
     print(args, file=sys.stderr)
     sys.exit(0)
 
-
-if __name__ == "__main__":
-    """
-    Usage:
-
-    $ hamster-export profile feb11 dec23 --short --round=5m
-
-
-    """
+def parse_args():
     parser = argparse.ArgumentParser(description='Hamster exporter.')
 
     parser.add_argument('profile', action='store', help='specify profile')
@@ -480,12 +472,17 @@ if __name__ == "__main__":
                         help='export to file instead of stdout')
 
     args = parser.parse_args()
+    return args
+
+def main():
+    args = parse_args()
 
     config_files = [os.path.expanduser('~/.hamster-export')]
     activities = load_activities(config_files)
     profile = load_profile(config_files, args, activities)
 
     from_, till = parse_date_range(args.date, args.till)
+
     storage = Storage()
     timesheet = Timesheet.from_hamster_facts(storage, from_, till)
     timesheet.check_activities(activities)
@@ -497,3 +494,5 @@ if __name__ == "__main__":
 
     profile.process(timesheet)
 
+if __name__ == "__main__":
+    main()
