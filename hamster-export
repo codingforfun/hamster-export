@@ -168,9 +168,14 @@ class TimeEntry(object):
                          ticket)
 
     def repr_duration(self):
-        hours = self.duration_mins / 60
-        minutes = self.duration_mins % 60
-        return '{}:{:0>2}'.format(hours, minutes)
+        if 0: #
+            hours = self.duration_mins / 60
+            minutes = self.duration_mins % 60
+            return '{}:{:0>2}'.format(hours, minutes)
+        else:
+            hours = self.duration_mins / 60.0
+            return '{:0>2}'.format(hours)
+
 
     @staticmethod
     def parse_duration(string):
