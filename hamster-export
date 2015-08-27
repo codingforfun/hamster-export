@@ -455,7 +455,7 @@ if __name__ == "__main__":
     """
     Usage:
 
-    $ hamster-export profile feb11 dec23 --short --round=5m --skip
+    $ hamster-export profile feb11 dec23 --short --round=5m
 
 
     """
