@@ -342,7 +342,7 @@ class CSV(Profile):
 
     def process(self, timesheet, **kwargs):
         timesheet = self.filter_timesheet(timesheet)
-        timesheet = ActiveCollab.edit_timesheet(timesheet)
+        timesheet = Profile.edit_timesheet(timesheet)
         timesheet.check_activities(self._activities.values())
 
         output = StringIO.StringIO()
