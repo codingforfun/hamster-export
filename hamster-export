@@ -364,10 +364,14 @@ class CSV(Profile):
         output = StringIO.StringIO()
         writer = csv.writer(output, quoting=csv.QUOTE_NONNUMERIC)
 
+        total = 0
         writer.writerow(['activity', 'date', 'description', 'duration'])
         for entry in timesheet.entries:
+            total = total + entry.duration
             writer.writerow([entry.name, entry.date, entry.description,
                              entry.repr_duration()])
+        sum_entry = TimeEntry('Total', None, total, '', '')
+        writer.writerow(['total', '', '', sum_entry.repr_duration()])
 
         if self.filename is not None:
             file = open(os.path.join(os.getcwd(), self.filename), 'w')
