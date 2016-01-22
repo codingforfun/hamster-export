@@ -215,6 +215,8 @@ class Activity(object):
 
     def __init__(self, name, options={}):
         self.name = name
+        profile = options.get('profile', '')
+        options.update(profile=[s.strip() for s in profile.split(',') if s])
         self._options = options
 
     def get(self, key):
@@ -408,7 +410,7 @@ def load_profile(config_files, args, activities):
         exit('Not supported format:', format_)
 
     for activity in activities:
-        if activity.get('profile') == args.profile:
+        if args.profile in activity.get('profile'):
             profile.add_activity(activity)
     profile.validate()
     return profile
